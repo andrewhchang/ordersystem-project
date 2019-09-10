@@ -1,0 +1,15 @@
+*.class
+*.jar
+.project
+.*.swp
+target
+h2
+.idea
+*.bak
+logs
+.settings
+bin
+.classpath
+*.iml
+ativemq-data
+*.db
