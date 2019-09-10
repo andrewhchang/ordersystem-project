@@ -3,12 +3,21 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>liquorstore</groupId>
+    <groupId>com.marlo.achang</groupId>
     <artifactId>finalproject</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>Parent Projects</name>
-    <url>https://themarlogroup.gitlab.io/training/students/achang/finalproject</url>
+    <modules>
+        <module>supplier-a</module>
+        <module>supplier-b</module>
+        <module>supplier-c</module>
+        <module>customerorderms</module>
+        <module>purchaseorderms</module>
+        <module>productms</module>
+    </modules>
+    <name>Final Project</name>
+    <url>https://themarlogroup.gitlab.io/training/students/ac
+         hang/finalproject</url>
     <developers>
         <developer>
             <id>andrew.chang</id>
