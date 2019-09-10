@@ -15,8 +15,9 @@
         <module>purchaseorderms</module>
         <module>productms</module>
     </modules>
-    <name>Parent Projects</name>
-    <url>https://themarlogroup.gitlab.io/training/students/achang/finalproject</url>
+    <name>Final Project</name>
+    <url>https://themarlogroup.gitlab.io/training/students/ac
+         hang/finalproject</url>
     <developers>
         <developer>
             <id>andrew.chang</id>
