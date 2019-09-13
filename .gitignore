@@ -13,3 +13,4 @@ bin
 *.iml
 ativemq-data
 *.db
+h2
