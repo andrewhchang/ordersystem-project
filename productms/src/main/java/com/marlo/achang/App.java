@@ -40,17 +40,18 @@ public class App {
       Collections.addAll(productListB, productB1, productB2);
       Collections.addAll(productListC, productC1, productC2);
 
-      Supplier supplierA = new Supplier("SupplierA", productListA);
-      Supplier supplierB = new Supplier("SupplierB", productListB);
-      Supplier supplierC = new Supplier("SupplierC", productListC);
+      Supplier supplierA = new Supplier("Supplier_A", productListA);
+      Supplier supplierB = new Supplier("Supplier_B", productListB);
+      Supplier supplierC = new Supplier("Supplier_C", productListC);
 
       supplierRepository.save(supplierA);
       supplierRepository.save(supplierB);
       supplierRepository.save(supplierC);
     };
   }
+
   @Bean
-    public RestTemplate newRestTemplate() {
-      return new RestTemplate();
+  public RestTemplate newRestTemplate() {
+    return new RestTemplate();
   }
 }
