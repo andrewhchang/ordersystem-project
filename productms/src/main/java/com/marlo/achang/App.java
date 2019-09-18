@@ -51,7 +51,8 @@ public class App {
     };
   }
 
-  @Bean @LoadBalanced
+  @Bean
+  @LoadBalanced
   public RestTemplate newRestTemplate() {
     return new RestTemplate();
   }

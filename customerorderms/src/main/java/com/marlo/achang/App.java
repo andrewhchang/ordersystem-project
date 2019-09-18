@@ -12,7 +12,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,8 +28,8 @@ public class App {
   public CommandLineRunner runner() {
     return args -> {
       Customer customer = new Customer("Customer_A");
-      Orderline orderLine_a = new Orderline("Fresh Sandwich", 9);
-      Orderline orderLine_b = new Orderline("Batt", 3);
+      Orderline orderLine_a = new Orderline("Sandwich", 9);
+      Orderline orderLine_b = new Orderline("Bat", 3);
       List<Orderline> orderLines = new ArrayList<>();
       orderLines.add(orderLine_a);
       orderLines.add(orderLine_b);
@@ -40,7 +39,8 @@ public class App {
     };
   }
 
-  @Bean @LoadBalanced
+  @Bean
+  @LoadBalanced
   public RestTemplate newRestTemplate() {
     return new RestTemplate();
   }
