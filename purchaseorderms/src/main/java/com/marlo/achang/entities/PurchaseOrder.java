@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PurchaseOrder {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "PURCHASEORDER_ID")
   private int purchaseOrderId;
 

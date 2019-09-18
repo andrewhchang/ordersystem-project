@@ -1,4 +1,4 @@
-package liquorstore;
+package com.marlo.achang;
 
 /** Hello world! */
 public class App {

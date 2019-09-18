@@ -5,6 +5,8 @@ import com.marlo.achang.interfaces.OrderRepository;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +21,10 @@ import org.springframework.web.client.RestTemplate;
 public class Controller {
   @Autowired private OrderRepository orderRepository;
   @Autowired private RestTemplate restTemplate;
+  @Autowired @LoadBalanced private RestTemplate loadTemplate;
 
-  private String productService = "http://product-service/products/";
-  private String purchaseOrderService = "http://purchaseorder-service/";
+  private String productService = "http://product-service/products";
+  private String purchaseOrderService = "http://purchaseorder-service/purchaseorder/";
 
   @RequestMapping("/all")
   private List<CustomerOrder> getAllOrders() {
@@ -32,7 +35,7 @@ public class Controller {
   private ResponseEntity submitOrder(@RequestBody CustomerOrder order) {
     ResponseEntity response =
         restTemplate.postForEntity(
-            productService + "validate", order, ResponseEntity.class);
+            productService + "/validate", order, ResponseEntity.class);
     if (response.getStatusCode().equals(HttpStatus.CREATED)) {
       log.info("Saving Order...{}", "");
       orderRepository.save(order);
@@ -43,7 +46,7 @@ public class Controller {
   }
 
   private ResponseEntity sendOrder(CustomerOrder order){
-      restTemplate.postForObject(purchaseOrderService + "distribute", order, String.class);
+      loadTemplate.postForEntity(purchaseOrderService + "distribute", order, ResponseEntity.class);
       return new ResponseEntity(HttpStatus.CREATED);
   }
 }
