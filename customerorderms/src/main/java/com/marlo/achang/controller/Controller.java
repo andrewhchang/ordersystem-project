@@ -20,24 +20,30 @@ public class Controller {
   @Autowired private OrderRepository orderRepository;
   @Autowired private RestTemplate restTemplate;
 
-  private String productService = "http://product-service/";
+  private String productService = "http://product-service/products/";
+  private String purchaseOrderService = "http://purchaseorder-service/";
 
   @RequestMapping("/all")
   private List<CustomerOrder> getAllOrders() {
     return orderRepository.findAll();
   }
 
-  @PostMapping("/send")
-  private ResponseEntity sendOrder(@RequestBody CustomerOrder order) {
+  @PostMapping("/submit")
+  private ResponseEntity submitOrder(@RequestBody CustomerOrder order) {
     ResponseEntity response =
         restTemplate.postForEntity(
-            productService + "products/validate", order, ResponseEntity.class);
+            productService + "validate", order, ResponseEntity.class);
     if (response.getStatusCode().equals(HttpStatus.CREATED)) {
       log.info("Saving Order...{}", "");
       orderRepository.save(order);
-      log.info("Processing order...{}", "");
-      // TODO: process order
+      log.info("Sending order...{}", "");
+      sendOrder(order);
     } else log.info("No products found in stock.{}", "");
     return response;
+  }
+
+  private ResponseEntity sendOrder(CustomerOrder order){
+      restTemplate.postForObject(purchaseOrderService + "distribute", order, String.class);
+      return new ResponseEntity(HttpStatus.CREATED);
   }
 }
