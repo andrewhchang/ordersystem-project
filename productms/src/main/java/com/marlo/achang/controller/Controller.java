@@ -3,10 +3,9 @@ package com.marlo.achang.controller;
 import com.marlo.achang.entities.Product;
 import com.marlo.achang.entities.Supplier;
 import com.marlo.achang.repositories.ProductRepository;
+import com.marlo.achang.repositories.SupplierRepository;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.marlo.achang.repositories.SupplierRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 @Slf4j
 @RestController
@@ -22,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 public class Controller {
   @Autowired private ProductRepository productRepository;
   @Autowired private SupplierRepository supplierRepository;
-  //@Autowired private RestTemplate restTemplate;
+  // @Autowired private RestTemplate restTemplate;
   private ArrayList<String> orderList;
 
   @RequestMapping("/all")
@@ -66,9 +64,9 @@ public class Controller {
   @PostMapping("/getsupplier")
   private Supplier getSupplier(@RequestBody String orderProduct) {
     return supplierRepository.findBySupplierProductsContaining(getProduct(orderProduct));
-    }
+  }
 
-  private Product getProduct(String productName){
+  private Product getProduct(String productName) {
     return productRepository.findByProductName(productName);
   }
 }

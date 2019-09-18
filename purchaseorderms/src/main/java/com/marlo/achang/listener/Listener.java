@@ -8,11 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Listener {
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+  @Autowired private RabbitTemplate rabbitTemplate;
 
-    @RabbitListener(queues = "Updated-Orders")
-    public void listen(Message message){
-
-    }
+  @RabbitListener(queues = "Updated-Orders")
+  public void listen(Message message) {}
 }

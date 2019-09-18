@@ -7,7 +7,6 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-
 @SpringBootApplication
 public class PurchaseOrderRunner {
   public static void main(String[] args) {
@@ -16,13 +15,12 @@ public class PurchaseOrderRunner {
 
   @Bean
   @LoadBalanced
-  public RestTemplate restTemplate(){
+  public RestTemplate restTemplate() {
     return new RestTemplate();
   }
 
   @Bean
-  public Queue newQueue(){
+  public Queue newQueue() {
     return new Queue("Updated-Orders", false);
   }
 }
-

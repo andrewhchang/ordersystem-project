@@ -39,10 +39,13 @@ public class CustomerOrderRunner {
       orderRepository.save(customerOrder);
     };
   }
-  @Bean @LoadBalanced
-  public RestTemplate loadTemplate(){
+
+  @Bean
+  @LoadBalanced
+  public RestTemplate loadTemplate() {
     return new RestTemplate();
   }
+
   @Primary
   @Bean
   @LoadBalanced

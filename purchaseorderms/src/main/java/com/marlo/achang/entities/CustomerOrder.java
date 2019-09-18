@@ -1,10 +1,9 @@
 package com.marlo.achang.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-
-import javax.persistence.*;
 import java.util.List;
+import javax.persistence.*;
+import lombok.*;
 
 @ToString
 @Getter

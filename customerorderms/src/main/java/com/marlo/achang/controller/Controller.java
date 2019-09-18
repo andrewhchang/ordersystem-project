@@ -6,7 +6,6 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,8 +33,7 @@ public class Controller {
   @PostMapping("/submit")
   private ResponseEntity submitOrder(@RequestBody CustomerOrder order) {
     ResponseEntity response =
-        restTemplate.postForEntity(
-            productService + "/validate", order, ResponseEntity.class);
+        restTemplate.postForEntity(productService + "/validate", order, ResponseEntity.class);
     if (response.getStatusCode().equals(HttpStatus.CREATED)) {
       log.info("Saving Order...{}", "");
       orderRepository.save(order);
@@ -45,8 +43,8 @@ public class Controller {
     return response;
   }
 
-  private ResponseEntity sendOrder(CustomerOrder order){
-      loadTemplate.postForEntity(purchaseOrderService + "distribute", order, ResponseEntity.class);
-      return new ResponseEntity(HttpStatus.CREATED);
+  private ResponseEntity sendOrder(CustomerOrder order) {
+    loadTemplate.postForEntity(purchaseOrderService + "distribute", order, ResponseEntity.class);
+    return new ResponseEntity(HttpStatus.CREATED);
   }
 }

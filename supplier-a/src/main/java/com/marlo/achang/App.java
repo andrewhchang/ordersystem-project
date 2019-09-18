@@ -12,7 +12,7 @@ public class App {
   }
 
   @Bean
-  public Queue newQueue(){
+  public Queue newQueue() {
     return new Queue("Pending-Orders", false);
   }
 }
