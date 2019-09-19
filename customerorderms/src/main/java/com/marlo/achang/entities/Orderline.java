@@ -13,7 +13,7 @@ import lombok.Setter;
 @Entity
 public class Orderline {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ORDERLINE_ID")
   private int orderLineId;
 

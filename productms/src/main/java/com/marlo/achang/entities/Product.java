@@ -14,7 +14,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
-  @Id @GeneratedValue private int productId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int productId;
+
   @Column private String productName;
 
   @JsonIgnore

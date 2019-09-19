@@ -13,7 +13,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Supplier {
-  @Id @GeneratedValue private int supplierId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int supplierId;
+
   @Column private String supplierName;
 
   @ManyToMany(cascade = CascadeType.ALL)

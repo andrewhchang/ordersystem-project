@@ -1,4 +1,4 @@
-package com.marlo.achang.controllers;
+package com.marlo.achang.controller;
 
 import com.marlo.achang.entities.CustomerOrder;
 import com.marlo.achang.entities.Orderline;
@@ -8,6 +8,7 @@ import com.marlo.achang.interfaces.PurchaseOrderRepository;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,9 @@ import org.springframework.web.client.RestTemplate;
 public class Controller {
   @Autowired private RestTemplate restTemplate;
   @Autowired private PurchaseOrderRepository purchaseOrderRepository;
-  private String productService = "http://product-service/products/";
+
+  @Value("${productservice.api}")
+  private String productService;
 
   @RequestMapping("/all")
   private String tester() {
@@ -38,6 +41,7 @@ public class Controller {
       Supplier supplier =
           restTemplate.postForObject(
               productService + "getsupplier", orderLine.getProductDescription(), Supplier.class);
+      assert supplier != null;
       log.info(supplier.getSupplierName() + "{}", "");
       log.info("Purchase Order ID{} sent.", purchaseOrder.getPurchaseOrderId());
     }

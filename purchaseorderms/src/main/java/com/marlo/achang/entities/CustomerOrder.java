@@ -13,7 +13,7 @@ import lombok.*;
 @Entity
 public class CustomerOrder {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "CUSTOMERORDER_ID")
   private int orderId;
 

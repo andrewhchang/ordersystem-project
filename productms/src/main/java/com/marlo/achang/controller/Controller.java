@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 public class Controller {
   @Autowired private ProductRepository productRepository;
   @Autowired private SupplierRepository supplierRepository;
-  // @Autowired private RestTemplate restTemplate;
   private ArrayList<String> orderList;
 
   @RequestMapping("/all")
