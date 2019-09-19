@@ -14,3 +14,4 @@ bin
 ativemq-data
 *.db
 h2
+hs_err_pid12050.log

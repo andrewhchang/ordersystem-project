@@ -5,10 +5,14 @@ import com.marlo.achang.entities.Orderline;
 import com.marlo.achang.entities.PurchaseOrder;
 import com.marlo.achang.entities.Supplier;
 import com.marlo.achang.interfaces.PurchaseOrderRepository;
+import com.marlo.achang.wsimport.SoapServer;
+import com.marlo.achang.wsimport.SoapServerService;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,10 +26,17 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/purchaseorder")
 public class Controller {
   @Autowired private RestTemplate restTemplate;
+  @Autowired @LoadBalanced RestTemplate loadTemplate;
   @Autowired private PurchaseOrderRepository purchaseOrderRepository;
+  @Autowired private RabbitTemplate rabbitTemplate;
+  @Autowired private SoapServerService client;
+  private SoapServer soapServer;
 
   @Value("${productservice.api}")
   private String productService;
+
+  @Value("${supplierb.api}")
+  private String supplierBApi;
 
   @RequestMapping("/all")
   private String tester() {
@@ -35,16 +46,46 @@ public class Controller {
   @PostMapping("/distribute")
   private ResponseEntity sendPurchaseOrders(@RequestBody CustomerOrder order) {
     List<Orderline> productList = order.getOrderLines();
+    ResponseEntity response;
     for (Orderline orderLine : productList) {
       PurchaseOrder purchaseOrder = new PurchaseOrder(orderLine);
-      purchaseOrderRepository.save(purchaseOrder);
       Supplier supplier =
           restTemplate.postForObject(
               productService + "getsupplier", orderLine.getProductDescription(), Supplier.class);
       assert supplier != null;
+      purchaseOrderRepository.save(purchaseOrder);
+
       log.info(supplier.getSupplierName() + "{}", "");
+      switch (supplier.getSupplierName()) {
+        case "Supplier_A":
+          sendToSupplierA(purchaseOrder);
+          break;
+        case "Supplier_B":
+          sendToSupplierB(purchaseOrder);
+          break;
+        case "Supplier_C":
+          sendToSupplierC(purchaseOrder);
+          break;
+        default:
+          return new ResponseEntity(HttpStatus.NOT_FOUND);
+      }
       log.info("Purchase Order ID{} sent.", purchaseOrder.getPurchaseOrderId());
+      purchaseOrder.setOrderStatusFulfilled(true);
+      // TODO see if this change is persisted
     }
     return new ResponseEntity(HttpStatus.CREATED);
+  }
+
+  private void sendToSupplierA(PurchaseOrder purchaseOrder) {
+    rabbitTemplate.convertAndSend("Pending-Orders", purchaseOrder.toString());
+  }
+
+  private ResponseEntity sendToSupplierB(PurchaseOrder purchaseOrder) {
+    return loadTemplate.postForEntity(supplierBApi, purchaseOrder, ResponseEntity.class);
+  }
+
+  private String sendToSupplierC(PurchaseOrder purchaseOrder) {
+    soapServer = client.getSoapServerPort();
+    return soapServer.receive(purchaseOrder.toString());
   }
 }

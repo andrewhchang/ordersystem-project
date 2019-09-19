@@ -1,7 +1,10 @@
-package com.marlo.achang.entities;
+package com.marlo.achang;
 
 import javax.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Setter

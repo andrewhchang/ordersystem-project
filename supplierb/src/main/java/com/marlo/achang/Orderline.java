@@ -1,4 +1,4 @@
-package com.marlo.achang.entities;
+package com.marlo.achang;
 
 import javax.persistence.*;
 import lombok.*;

@@ -26,9 +26,9 @@
         </developer>
     </developers>
     <modules>
-        <module>supplier-a</module>
-        <module>supplier-b</module>
-        <module>supplier-c</module>
+        <module>suppliera</module>
+        <module>supplierb</module>
+        <module>supplierc</module>
         <module>customerorderms</module>
         <module>purchaseorderms</module>
         <module>productms</module>
