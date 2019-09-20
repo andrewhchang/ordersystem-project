@@ -1,4 +1,4 @@
-package com.marlo.achang.entities;
+package com.marlo.achang.entities.customerorder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
@@ -15,9 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-@ToString
 @Getter
 @Setter
 @NoArgsConstructor
@@ -41,5 +39,14 @@ public class CustomerOrder {
   public CustomerOrder(Customer customer, List<Orderline> orderLines) {
     this.customer = customer;
     this.orderLines = orderLines;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder lines = new StringBuilder();
+    for (Orderline line : orderLines) {
+      lines.append(line.toString());
+    }
+    return "CustomerOrder{" + "orderId=" + orderId + ", orderLines=" + lines + '}';
   }
 }

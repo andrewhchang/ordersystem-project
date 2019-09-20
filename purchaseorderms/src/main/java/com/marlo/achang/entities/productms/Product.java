@@ -1,8 +1,13 @@
-package com.marlo.achang.entities;
+package com.marlo.achang.entities.productms;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

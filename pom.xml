@@ -50,6 +50,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <springboot.version>2.1.8.RELEASE</springboot.version>
         <springcloud.version>2.1.3.RELEASE</springcloud.version>
+        <springmessaging.version>5.1.9.RELEASE</springmessaging.version>
     </properties>
     <dependencies>
         <dependency>

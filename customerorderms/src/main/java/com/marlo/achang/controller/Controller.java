@@ -39,11 +39,14 @@ public class Controller {
     ResponseEntity response =
         restTemplate.postForEntity(productService + "validate", order, ResponseEntity.class);
     if (response.getStatusCode().equals(HttpStatus.CREATED)) {
-      log.info("Saving Order...{}", "");
+      log.info("Saving Order ID{}...", order.getOrderId());
       orderRepository.save(order);
-      log.info("Sending order...{}", "");
+      log.info("Sending order ID{}...", order.getOrderId());
       sendOrder(order);
-    } else log.info("No products found in stock.{}", "");
+      log.info("Order ID{} sent.", order.getOrderId());
+    } else if (response.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+      log.debug("No products found in stock.{}", "");
+    }
     return response;
   }
 

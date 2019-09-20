@@ -1,9 +1,9 @@
 package com.marlo.achang.controller;
 
-import com.marlo.achang.entities.CustomerOrder;
-import com.marlo.achang.entities.Orderline;
 import com.marlo.achang.entities.PurchaseOrder;
-import com.marlo.achang.entities.Supplier;
+import com.marlo.achang.entities.customerorder.CustomerOrder;
+import com.marlo.achang.entities.customerorder.Orderline;
+import com.marlo.achang.entities.productms.Supplier;
 import com.marlo.achang.interfaces.PurchaseOrderRepository;
 import com.marlo.achang.wsimport.SoapServer;
 import com.marlo.achang.wsimport.SoapServerService;
@@ -55,7 +55,7 @@ public class Controller {
       assert supplier != null;
       purchaseOrderRepository.save(purchaseOrder);
 
-      log.info(supplier.getSupplierName() + "{}", "");
+      log.debug("Supplier: {}", supplier.getSupplierName());
       switch (supplier.getSupplierName()) {
         case "Supplier_A":
           sendToSupplierA(purchaseOrder);
@@ -69,9 +69,12 @@ public class Controller {
         default:
           return new ResponseEntity(HttpStatus.NOT_FOUND);
       }
-      log.info("Purchase Order ID{} sent.", purchaseOrder.getPurchaseOrderId());
+      log.debug("Purchase Order ID{} sent.", purchaseOrder.getPurchaseOrderId());
       purchaseOrder.setOrderStatusFulfilled(true);
-      // TODO see if this change is persisted
+      log.debug(
+          "Purchase order ID{} fulfilled status: {}",
+          purchaseOrder.getPurchaseOrderId(),
+          purchaseOrder.isOrderStatusFulfilled());
     }
     return new ResponseEntity(HttpStatus.CREATED);
   }

@@ -1,4 +1,4 @@
-package com.marlo.achang.entities;
+package com.marlo.achang.entities.customerorder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,12 +9,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString
 public class Orderline {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,7 +1,17 @@
 package com.marlo.achang.entities;
 
-import javax.persistence.*;
-import lombok.*;
+import com.marlo.achang.entities.customerorder.Orderline;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Setter

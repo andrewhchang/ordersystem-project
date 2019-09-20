@@ -1,6 +1,5 @@
 package com.marlo.achang;
 
-
 import javax.xml.ws.Endpoint;
 
 public class RunnerC {

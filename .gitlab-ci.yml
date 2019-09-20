@@ -15,9 +15,9 @@ cache:
     - customerorderms/target
     - productms/target
     - purchaseorderms/target
-    - supplier-a/target
-    - supplier-b/target
-    - supplier-c/target
+    - suppliera/target
+    - supplierb/target
+    - supplierc/target
 
 build:
   stage: build
@@ -28,9 +28,9 @@ build:
       - customerorderms/target
       - productms/target
       - purchaseorderms/target
-      - supplier-a/target
-      - supplier-b/target
-      - supplier-c/target
+      - suppliera/target
+      - supplierb/target
+      - supplierc/target
   except:
     - tags
 
@@ -45,9 +45,9 @@ pages:
     - customerorderms/target/*.jar
     - productms/target/*.jar
     - purchaseorderms/target/*.jar
-    - supplier-a/target/*.jar
-    - supplier-b/target/*.jar
-    - supplier-c/target/*.jar
-      - public
+    - suppliera/target/*.jar
+    - supplierb/target/*.jar
+    - supplierc/target/*.jar
+    - public
   only:
-    - master
+    - develop

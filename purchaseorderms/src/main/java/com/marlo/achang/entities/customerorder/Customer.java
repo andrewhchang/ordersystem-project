@@ -1,4 +1,4 @@
-package com.marlo.achang.entities;
+package com.marlo.achang.entities.customerorder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
