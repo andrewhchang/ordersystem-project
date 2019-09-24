@@ -60,7 +60,7 @@ public class Controller {
   }
 
   @PostMapping("/getsupplier")
-  private Supplier getSupplier(@RequestBody String orderProduct) {
+  public Supplier getSupplier(@RequestBody String orderProduct) {
     return supplierRepository.findBySupplierProductsContaining(getProduct(orderProduct));
   }
 
