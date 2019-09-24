@@ -41,6 +41,7 @@
         </site>
     </distributionManagement>
     <properties>
+        <dbunit.version>2.6.0</dbunit.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <plugin.fmt.version>2.9</plugin.fmt.version>
@@ -51,7 +52,6 @@
         <springboot.version>2.1.8.RELEASE</springboot.version>
         <springcloud.version>2.1.3.RELEASE</springcloud.version>
         <springmessaging.version>5.1.9.RELEASE</springmessaging.version>
-        <dbunit.version>2.6.0</dbunit.version>
     </properties>
     <dependencies>
         <dependency>
@@ -73,6 +73,11 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.10.1</version>
         </dependency>
         <dependency>
             <groupId>net.sf.saxon</groupId>
@@ -118,11 +123,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${springboot.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy</artifactId>
-            <version>1.10.1</version>
         </dependency>
     </dependencies>
     <build>

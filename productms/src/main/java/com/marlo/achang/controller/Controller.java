@@ -27,17 +27,17 @@ public class Controller {
   private ArrayList<String> orderList;
 
   @RequestMapping("/all")
-  private List<Product> getAllProducts() {
+  public List<Product> getAllProducts() {
     return productRepository.findAll();
   }
 
   @RequestMapping("/{supplierName}")
-  private List<Product> getProductsbySupplier(@PathVariable String supplierName) {
+  public List<Product> getProductsbySupplier(@PathVariable String supplierName) {
     return productRepository.findByProductSuppliers_supplierNameIgnoreCase(supplierName);
   }
 
   @PostMapping("/validate")
-  private ResponseEntity validateProduct(@RequestBody CustomerOrder order) {
+  public ResponseEntity validateProduct(@RequestBody CustomerOrder order) {
     ResponseEntity responseEntity;
     orderList = new ArrayList<>();
     List<Orderline> orderlines = order.getOrderLines();
@@ -58,42 +58,6 @@ public class Controller {
     responseEntity = new ResponseEntity(HttpStatus.CREATED);
     return responseEntity;
   }
-
-  // grab product from each orderline and validate if exists, add to order list
-  //    for (int i = 0; i < keys.length(); i++) {
-  //      JSONObject orderline = keys.getJSONObject(i);
-  //      String productName = orderline.get("productDescription").toString();
-  //
-  //    }
-  //
-  //  }
-  //  @PostMapping("/validate")
-  //  private ResponseEntity validateProduct(@RequestBody String orderProducts) {
-  //    ResponseEntity responseEntity;
-  //    orderList = new ArrayList<>();
-  //    log.info("Order payload: {}", orderProducts);
-  //
-  //    // string to json array, grab key "orderLines"
-  //    JSONObject object = new JSONObject(orderProducts);
-  //    JSONArray keys = object.getJSONArray("orderLines");
-  //
-  //    // grab product from each orderline and validate if exists, add to order list
-  //    for (int i = 0; i < keys.length(); i++) {
-  //      JSONObject orderline = keys.getJSONObject(i);
-  //      String productName = orderline.get("productDescription").toString();
-  //      if (productRepository.findByProductName(productName) != null) {
-  //        log.info("Product {} found in Product Database", productName);
-  //        orderList.add(productName);
-  //      } else {
-  //        log.info("Request for product {} returned null", productName);
-  //        responseEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
-  //        return responseEntity;
-  //      }
-  //    }
-  //    log.info("Products ordered: {}", orderList.size());
-  //    responseEntity = new ResponseEntity(HttpStatus.CREATED);
-  //    return responseEntity;
-  //  }
 
   @PostMapping("/getsupplier")
   private Supplier getSupplier(@RequestBody String orderProduct) {

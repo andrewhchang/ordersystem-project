@@ -51,3 +51,4 @@ pages:
     - public
   only:
     - develop
+    - master
