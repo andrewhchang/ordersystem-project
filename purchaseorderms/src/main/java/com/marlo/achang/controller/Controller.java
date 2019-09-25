@@ -8,6 +8,8 @@ import com.marlo.achang.interfaces.PurchaseOrderRepository;
 import com.marlo.achang.wsimport.SoapServer;
 import com.marlo.achang.wsimport.SoapServerService;
 import java.util.List;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+@Setter
+@NoArgsConstructor
 @Slf4j
 @RestController
 @RequestMapping("/purchaseorder")
@@ -29,7 +33,7 @@ public class Controller {
   @Autowired @LoadBalanced RestTemplate loadTemplate;
   @Autowired private PurchaseOrderRepository purchaseOrderRepository;
   @Autowired private RabbitTemplate rabbitTemplate;
-  @Autowired private SoapServerService client;
+  @Autowired private SoapServerService soapClient;
   private SoapServer soapServer;
 
   @Value("${productservice.api}")
@@ -38,13 +42,8 @@ public class Controller {
   @Value("${supplierb.api}")
   private String supplierBApi;
 
-  @RequestMapping("/all")
-  private String tester() {
-    return "Test";
-  }
-
   @PostMapping("/distribute")
-  private ResponseEntity sendPurchaseOrders(@RequestBody CustomerOrder order) {
+  public ResponseEntity sendPurchaseOrders(@RequestBody CustomerOrder order) {
     List<Orderline> productList = order.getOrderLines();
     ResponseEntity response;
     for (Orderline orderLine : productList) {
@@ -79,16 +78,21 @@ public class Controller {
     return new ResponseEntity(HttpStatus.CREATED);
   }
 
-  private void sendToSupplierA(PurchaseOrder purchaseOrder) {
+  public ResponseEntity sendToSupplierA(PurchaseOrder purchaseOrder) {
     rabbitTemplate.convertAndSend("Pending-Orders", purchaseOrder.toString());
+    return new ResponseEntity(HttpStatus.OK);
   }
 
-  private ResponseEntity sendToSupplierB(PurchaseOrder purchaseOrder) {
+  public ResponseEntity sendToSupplierB(PurchaseOrder purchaseOrder) {
     return loadTemplate.postForEntity(supplierBApi, purchaseOrder, ResponseEntity.class);
   }
 
-  private String sendToSupplierC(PurchaseOrder purchaseOrder) {
-    soapServer = client.getSoapServerPort();
+  public String sendToSupplierC(PurchaseOrder purchaseOrder) {
+    soapServer = soapClient.getSoapServerPort();
     return soapServer.receive(purchaseOrder.toString());
+  }
+
+  public Controller(RestTemplate loadTemplate) {
+    this.loadTemplate = loadTemplate;
   }
 }

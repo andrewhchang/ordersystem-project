@@ -1,5 +1,6 @@
 package com.marlo.achang;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @ToString
-public class Orderline {
+public class Orderline implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ORDERLINE_ID")
