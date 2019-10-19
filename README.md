@@ -2,7 +2,8 @@
 
 This project is a microservice-based system utilising several different technologies, with Spring Boot and Maven.
 
-##Technologies
+## Technologies
+---------------
 1. Rest APIs are used for each of the microservices, providing a single endpoint that is exposed to the user. The CustomerOrder microservice takes a single JSON POST request. All validation of products and the splitting of orders and sending to suppliers is handled by the Product microservice and the Purchase Order microservice respectively. Single click and forget.
 
 2. Each supplier is set up differently using the following three technologies - REST, SOAP Webservice, and JMS(RabbitMQ).
