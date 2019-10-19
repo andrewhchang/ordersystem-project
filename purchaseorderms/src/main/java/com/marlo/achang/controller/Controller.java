@@ -42,6 +42,7 @@ public class Controller {
   @Value("${supplierb.api}")
   private String supplierBApi;
 
+  //
   @PostMapping("/distribute")
   public ResponseEntity sendPurchaseOrders(@RequestBody CustomerOrder order) {
     List<Orderline> productList = order.getOrderLines();
